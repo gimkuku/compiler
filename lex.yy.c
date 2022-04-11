@@ -1928,7 +1928,7 @@ void main(){
 			case TIF : printf("If\n"); break;
 			case TINT : printf("Int\n"); break;
 			case TRETURN : printf("Return\n"); break;
-			case TVOID : printf("Void : %d\n"); break;
+			case TVOID : printf("Void\n"); break;
 			case TWHILE : printf("While\n"); break;
 			case TEQUAL : printf("Equal\n"); break;
             case TNOTEQU : printf("Not Equal\n"); break;
@@ -1945,7 +1945,6 @@ void main(){
 			case TMODASSIGN : printf("Mod Assign\n"); break;
 			case TIDENT : printf("Identifier : %s\n",yytext); break;
 			case TNUMBER : printf("Number : %s\n",yytext); break;
-            default : printf("%s", yytext); break;
 		}
 	}
 }
