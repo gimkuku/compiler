@@ -21,7 +21,8 @@ void SymbolTable();
 void printtoolongError();   
 void printillidError();     
 void printillspError();     
-void printoverflowError();   
+void printoverflowError();
+void printtoken();
 
 extern yylex();
 extern yyleng;

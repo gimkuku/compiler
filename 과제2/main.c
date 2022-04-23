@@ -20,8 +20,9 @@ void main()
 
     // cErrors 개수 출력
 	if (cErrors ==0) {
-	printf ("No errors defected")}
-	else {
+        printf("No errors detected");
+    }
+    else {
 	printf ("%d errors detected",cErrors);
     }
 }
@@ -106,4 +107,5 @@ void printtoken(enum tokentypes tn){
     case TLONGIDERR: printtoolongError(); cErrors++; break;
     case TSWDIGITERR: printillidError(); cErrors++; break;
     case TILLSYMBOLERR: printillspError(); cErrors++; break;
+    }
 }
