@@ -27,7 +27,7 @@ digit	[0-9]
 "*=" return(TMULASSIGN);
 "/=" return(TDIVASSIGN);
 "%=" return(TMODASSIGN);
-"\n" return(TNEWLINE)
+"\n" cLine++;
 [A-Za=z_][A-Za-z0-9_]* {
                             if(yyleng > 12) return(TLONGIDERR);
                             else{
