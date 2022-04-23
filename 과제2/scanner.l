@@ -28,14 +28,25 @@ digit	[0-9]
 "/=" return(TDIVASSIGN);
 "%=" return(TMODASSIGN);
 "\n" return(TNEWLINE)
-[A-Za=z_][A-Za-z0-9_]* return (TIDENT);
+[A-Za=z_][A-Za-z0-9_]* {
+                            if(yyleng > 12) return(TLONGIDERR);
+                            else{
+                                SymbolTable();
+                                return(TIDENT);
+                            }
+                        }
+[0-9][A-Za-z0-9_]*           return(TSWDIGITERR);  
+"/*"([^*]|\*+[^*/])*\**"*/"     {
+                                    int i;
+                                    for(i = 0; i < yyleng; i++)
+                                        if(yytext[i] == '\n') cLine++;
+                                }   
 [1-9][0-9]*|0([0-7]+|(x|X)[0-9A-Fa-f]*)?    return(TNUMBER);
-"/*"([^*]|\*+[^*/])*\**"*/" ;
 "//".* ;
 [ \t\n] ;
-. return (yytext[0]);
+. return (TILLSYMBOLERR);
 %%
 int yywrap() {
-    printf("1871015 김현진\n");
+    printf("1871015 김현진\n1971031 이가영");
     return 1;
 }
