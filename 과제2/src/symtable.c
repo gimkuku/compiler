@@ -11,7 +11,7 @@
 
 #define FILE_NAME "./testdata.txt"
  
-enum errorTypes { noerror, illsp, illid, overst, toolong };
+enum errorTypes { noerror, illsp, illid, overst, toolong};
 typedef enum errorTypes ERRORtypes;
  
 char seperators[] = " .,;:?!\t\n";
@@ -25,8 +25,8 @@ int sameid;  //first index of identifier
 int stindex;
 int overflow = 0;
 int found; //for the previous occurrence of an identifie
-int nid = 0;
-int nfree = 0;
+int nextid = 0;
+int nextfree = 0;
 ERRORtypes error;
 
 FILE *fp;   //to be a pointer to FILE 
@@ -38,31 +38,31 @@ void ReadID() {
    // 한 글자씩 ST에 저장
    for(int i = 0; i < yyleng; i++){
       // 오버플로우 체크
-      if (nfree >= STsize) {
+      if (nextfree >= STsize) {
          overflow = 1;
          return;
       }
 
-      ST[nfree] = yytext[i];
+      ST[nextfree] = yytext[i];
    }
 
    // identifier 마지막에 널문자 추가
-   if (nfree >= STsize)
+   if (nextfree >= STsize)
       overflow = 1;
    else
-      ST[nfree] = '\0';
+      ST[nextfree] = '\0';
 }
 /* deleteID
    :ST에 받아두었던 id 삭제 */
 void deleteID() {
-   nfree = nid;
+   nextfree = nextid;
 }
 
 /* insertID
    :ST에 받아두었던 id 저장 확정 */
 void insertID() {
-   stindex = nid;
-   nid = nfree;
+   stindex = nextid;
+   nextid = nextfree;
 }
  
 // 작성자 : 김현진(1871015)
@@ -76,12 +76,12 @@ int ComputeHS(int nid, int nfree)
 	/* 인덱스 nid부터 nfree 까지에 해당하는 ST의 값을 읽어와서 더해준 후, 
 	HT의 크기로 나누고, +1 한 값이 hashcode	*/
 	hashcode = askiisum % HTsize +1 ;
-	return hashcode
+	return hashcode;
 }
  
 
 // 작성자 : 김현진(1871015)
-void LookupHS(int nid, int hscode) {
+int LookupHS(int nid, int hscode) {
 	
 	int i, j;
 	HTpointer ptr;
@@ -97,6 +97,7 @@ void LookupHS(int nid, int hscode) {
 			while (ST[i] != '\0' && ST[j] != '\0' && found == TRUE) {
 				if (ST[i] != ST[j]) {
 					found = FALSE;
+					return -1;
 				}
 				else {
 					i++;
@@ -105,7 +106,10 @@ void LookupHS(int nid, int hscode) {
 			}
 			ptr = ptr->next;
 		}
+		return ptr -> index;
+
 	}
+
 }
  
  
@@ -124,25 +128,26 @@ void ADDHT(int hscode) {
  
  
 // 작성자 : 함께
-int SymbolTable()
+void SymbolTable()
 {
 	int i;
+	int ptr_idx;
 	ReadID();
 
 	if (overflow) {
-		return;
+		return ;
 	}
 
 	nextfree++;
 	hashcode = ComputeHS(nextid, nextfree);
-	LookupHS(nextid, hashcode);
+	ptr_idx = LookupHS(nextid, hashcode);
 
 	if (!found) {
 		ADDHT(hashcode);
 		insertID();
 	} 
 	else {
-		stindex = ptr;
+		stindex = ptr_idx;
 		deleteID();
 	}
 }
