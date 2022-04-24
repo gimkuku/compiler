@@ -49,11 +49,18 @@ void printtoken(enum tokentypes tn){
     case TWHILE:
         printf("While %18s %18s\n", "",yytext);
         break;
+    //비교연산자
     case TEQUAL:
         printf("Equal %18s %18s\n", "",yytext);
         break;
     case TNOTEQU:
         printf("Not Equal %18s %18s\n", "",yytext);
+        break;
+    case TLESS :
+        printf("Less %18s %18s\n", "",yytext);
+        break;
+    case TGREAT :
+        pirntf("Great %18s %18s\n", "",yytext);
         break;
     case TLESSE:
         printf("Less Equal %18s %18s\n", "",yytext);
@@ -61,18 +68,26 @@ void printtoken(enum tokentypes tn){
     case TGREATE:
         printf("Great Equal %18s %18s\n", "",yytext);
         break;
+    //논리연산자
     case TAND:
         printf("And %18s %18s\n", "",yytext);
         break;
     case TOR:
         printf("Or %18s %18s\n", "",yytext);
         break;
+    case TNOT:
+        printf("Not %18s %18s\n", "",yytext);
+        break;
+    
+    //증감연산자
     case TINC:
         printf("Increase %18s %18s\n", "",yytext);
         break;
     case TDEC:
         printf("Decrease %18s %18s\n", "",yytext);
         break;
+
+    //대입연산자
     case TADDASSIGN:
         printf("Add Assign %18s %18s\n", "",yytext);
         break;
@@ -88,6 +103,10 @@ void printtoken(enum tokentypes tn){
     case TMODASSIGN:
         printf("Mod Assign %18s %18s\n", "",yytext);
         break;
+    case TASSIGN:
+        printf("Assign %18s %18s\n", "",yytext);
+        break;
+
     case TNEWLINE:
         printf("\n");
         break;
@@ -96,7 +115,7 @@ void printtoken(enum tokentypes tn){
             printoverflowError();
             cErrors++;
         }
-        printf("Identifier %18d %18s\n", stindex,yytext);
+        else printf("Identifier %18d %18s\n", stindex,yytext);
         break;
     case TNUMBER:
         printf("Number : %18s %18s\n", "",yytext);
