@@ -9,14 +9,7 @@
 #include <string.h>
 #include "glob.h"
 
-#define FILE_NAME "./testdata.txt"
- 
-enum errorTypes { noerror, illsp, illid, overst, toolong};
-typedef enum errorTypes ERRORtypes;
- 
-char seperators[] = " .,;:?!\t\n";
 
- 
 HTpointer HT[HTsize];
 char ST[STsize];
 
@@ -27,10 +20,7 @@ int overflow = 0;
 int found; //for the previous occurrence of an identifie
 int nextid = 0;
 int nextfree = 0;
-ERRORtypes error;
 
-FILE *fp;   //to be a pointer to FILE 
-char input;
 
 
 // 작성자 : 함께
@@ -52,6 +42,7 @@ void ReadID() {
    else
       ST[nextfree] = '\0';
 }
+
 /* deleteID
    :ST에 받아두었던 id 삭제 */
 void deleteID() {
@@ -71,7 +62,6 @@ int ComputeHS(int nid, int nfree)
 	int askiisum = 0; //identifier의 아스키코드 총 합 변수 선언
 	for (int i = nid; i<nfree - 1; i++) {
 		askiisum += (int)ST[i];
-
 	}
 	/* 인덱스 nid부터 nfree 까지에 해당하는 ST의 값을 읽어와서 더해준 후, 
 	HT의 크기로 나누고, +1 한 값이 hashcode	*/

@@ -25,7 +25,7 @@ void printoverflowError();
 void printtoken();
 
 extern yylex();
-extern yyleng;
+extern unsigned long yyleng;
 extern char *yytext;
 extern int cLine;      
 extern int stindex;       
