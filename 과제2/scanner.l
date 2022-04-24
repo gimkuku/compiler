@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "tn.h"
+#include "glob.h"
 %}
 letter	[a-zA-Z_]
 digit	[0-9]

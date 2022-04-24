@@ -2,8 +2,6 @@
 #include "tn.h"
 #include "glob.h"
 
-extern int yylex();
-extern char *yytext;
 enum errorTypes { noerror, illsp, illid, overst, toolong };
 int cErrors = 0;
 int cLine = 1;
